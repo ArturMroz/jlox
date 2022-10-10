@@ -6,8 +6,10 @@ import com.jlox.Expr.Binary;
 import com.jlox.Expr.Grouping;
 import com.jlox.Expr.Literal;
 import com.jlox.Expr.Unary;
+import com.jlox.Expr.Variable;
 import com.jlox.Stmt.Expression;
 import com.jlox.Stmt.Print;
+import com.jlox.Stmt.Var;
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     void interpret(List<Stmt> statements) {
@@ -161,6 +163,18 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     public Void visitPrintStmt(Print stmt) {
         Object value = evaluate(stmt.expression);
         System.out.println(stringify(value));
+        return null;
+    }
+
+    @Override
+    public Void visitVarStmt(Var stmt) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Object visitVariableExpr(Variable expr) {
+        // TODO Auto-generated method stub
         return null;
     }
 }

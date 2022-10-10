@@ -4,6 +4,7 @@ import com.jlox.Expr.Binary;
 import com.jlox.Expr.Grouping;
 import com.jlox.Expr.Literal;
 import com.jlox.Expr.Unary;
+import com.jlox.Expr.Variable;
 
 class AstPrinter implements Expr.Visitor<String> {
     String print(Expr expr) {
@@ -32,6 +33,12 @@ class AstPrinter implements Expr.Visitor<String> {
         return parenthesize(expr.operator.lexeme, expr.right);
     }
 
+    @Override
+    public String visitVariableExpr(Variable expr) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     private String parenthesize(String name, Expr... exprs) {
         StringBuilder sb = new StringBuilder();
 
@@ -44,5 +51,4 @@ class AstPrinter implements Expr.Visitor<String> {
 
         return sb.toString();
     }
-
 }
