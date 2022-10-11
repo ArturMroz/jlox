@@ -1,5 +1,6 @@
 package com.jlox;
 
+import com.jlox.Expr.Assign;
 import com.jlox.Expr.Binary;
 import com.jlox.Expr.Grouping;
 import com.jlox.Expr.Literal;
@@ -25,6 +26,7 @@ class AstPrinter implements Expr.Visitor<String> {
     public String visitLiteralExpr(Literal expr) {
         if (expr.value == null)
             return "nil";
+
         return expr.value.toString();
     }
 
@@ -35,6 +37,12 @@ class AstPrinter implements Expr.Visitor<String> {
 
     @Override
     public String visitVariableExpr(Variable expr) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String visitAssignExpr(Assign expr) {
         // TODO Auto-generated method stub
         return null;
     }
