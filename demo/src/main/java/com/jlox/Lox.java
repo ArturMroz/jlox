@@ -30,9 +30,9 @@ public class Lox {
     byte[] bytes = Files.readAllBytes(Paths.get(path));
     run(new String(bytes, Charset.defaultCharset()));
 
-    // Indicate an error in the exit code.
     if (hadError)
       System.exit(65);
+
     if (hadRuntimeError)
       System.exit(70);
   }
@@ -57,7 +57,7 @@ public class Lox {
     Parser parser = new Parser(tokens);
     List<Stmt> statements = parser.parse();
 
-    // Stop if there was a syntax error.
+    // stop if there was a syntax error
     if (hadError)
       return;
 

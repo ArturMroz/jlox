@@ -7,6 +7,7 @@ import com.jlox.Expr.Grouping;
 import com.jlox.Expr.Literal;
 import com.jlox.Expr.Unary;
 import com.jlox.Expr.Variable;
+import com.jlox.Stmt.Block;
 import com.jlox.Stmt.Expression;
 import com.jlox.Stmt.Print;
 import com.jlox.Stmt.Var;
@@ -17,7 +18,13 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     void interpret(List<Stmt> statements) {
         try {
             for (Stmt statement : statements) {
-                execute(statement);
+                if (statement instanceof Stmt.Expression) {
+                    Expr expr = ((Stmt.Expression) statement).expression;
+                    Object value = evaluate(expr);
+                    System.out.println(stringify(value));
+                } else {
+                    execute(statement);
+                }
             }
         } catch (RuntimeError error) {
             Lox.runtimeError(error);
@@ -120,6 +127,20 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         stmt.accept(this);
     }
 
+    void executeBlock(List<Stmt> statements, Environment environment) {
+        Environment previous = this.environment;
+
+        try {
+            this.environment = environment;
+
+            for (Stmt stmt : statements) {
+                execute(stmt);
+            }
+        } finally {
+            this.environment = previous;
+        }
+    }
+
     private boolean isTruthy(Object object) {
         // we're using Ruby's rules of truthiness
         if (object == null)
@@ -177,6 +198,12 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
         environment.define(stmt.name.lexeme, value);
 
+        return null;
+    }
+
+    @Override
+    public Void visitBlockStmt(Stmt.Block stmt) {
+        executeBlock(stmt.statements, new Environment(environment));
         return null;
     }
 
