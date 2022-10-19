@@ -2,6 +2,7 @@ package com.jlox;
 
 import com.jlox.Expr.Assign;
 import com.jlox.Expr.Binary;
+import com.jlox.Expr.Call;
 import com.jlox.Expr.Grouping;
 import com.jlox.Expr.Literal;
 import com.jlox.Expr.Logical;
@@ -50,6 +51,12 @@ class AstPrinter implements Expr.Visitor<String> {
 
     @Override
     public String visitLogicalExpr(Logical expr) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String visitCallExpr(Call expr) {
         // TODO Auto-generated method stub
         return null;
     }
